@@ -258,6 +258,12 @@ class ApiClient {
           return AssetOrderTypeTransformer().decode(value);
         case 'AssetResponseDto':
           return AssetResponseDto.fromJson(value);
+        case 'AssetStackCreateDto':
+          return AssetStackCreateDto.fromJson(value);
+        case 'AssetStackResponseDto':
+          return AssetStackResponseDto.fromJson(value);
+        case 'AssetStackUpdateDto':
+          return AssetStackUpdateDto.fromJson(value);
         case 'AssetStatsResponseDto':
           return AssetStatsResponseDto.fromJson(value);
         case 'AssetTypeEnum':
@@ -534,8 +540,6 @@ class ApiClient {
           return UpdateLibraryDto.fromJson(value);
         case 'UpdatePartnerDto':
           return UpdatePartnerDto.fromJson(value);
-        case 'UpdateStackParentDto':
-          return UpdateStackParentDto.fromJson(value);
         case 'UpdateTagDto':
           return UpdateTagDto.fromJson(value);
         case 'UsageByUserDto':

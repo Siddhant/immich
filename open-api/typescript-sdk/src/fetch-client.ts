@@ -290,8 +290,6 @@ export type AssetBulkUpdateDto = {
     isFavorite?: boolean;
     latitude?: number;
     longitude?: number;
-    removeParent?: boolean;
-    stackParentId?: string;
 };
 export type AssetBulkUploadCheckItem = {
     /** base64 or hex encoded sha1 hash */
@@ -324,10 +322,6 @@ export type AssetJobsDto = {
 export type MemoryLaneResponseDto = {
     assets: AssetResponseDto[];
     yearsAgo: number;
-};
-export type UpdateStackParentDto = {
-    newParentId: string;
-    oldParentId: string;
 };
 export type AssetStatsResponseDto = {
     images: number;
@@ -867,6 +861,18 @@ export type AssetIdsResponseDto = {
     assetId: string;
     error?: Error2;
     success: boolean;
+};
+export type AssetStackCreateDto = {
+    /** first asset becomes the primary */
+    assetIds: string[];
+};
+export type AssetStackResponseDto = {
+    assets: AssetResponseDto[];
+    id: string;
+    primaryAssetId: string;
+};
+export type AssetStackUpdateDto = {
+    primaryAssetId?: string;
 };
 export type AssetDeltaSyncDto = {
     updatedAfter: string;
@@ -1541,15 +1547,6 @@ export function getRandom({ count }: {
     }))}`, {
         ...opts
     }));
-}
-export function updateStackParent({ updateStackParentDto }: {
-    updateStackParentDto: UpdateStackParentDto;
-}, opts?: Oazapfts.RequestOpts) {
-    return oazapfts.ok(oazapfts.fetchText("/assets/stack/parent", oazapfts.json({
-        ...opts,
-        method: "PUT",
-        body: updateStackParentDto
-    })));
 }
 export function getAssetStatistics({ isArchived, isFavorite, isTrashed }: {
     isArchived?: boolean;
@@ -2519,6 +2516,91 @@ export function addSharedLinkAssets({ id, key, assetIdsDto }: {
         ...opts,
         method: "PUT",
         body: assetIdsDto
+    })));
+}
+export function createAssetStack({ assetStackCreateDto }: {
+    assetStackCreateDto: AssetStackCreateDto;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.ok(oazapfts.fetchJson<{
+        status: 201;
+        data: AssetStackResponseDto;
+    }>("/stacks", oazapfts.json({
+        ...opts,
+        method: "POST",
+        body: assetStackCreateDto
+    })));
+}
+export function deleteAssetStack({ id }: {
+    id: string;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.ok(oazapfts.fetchText(`/stacks/${encodeURIComponent(id)}`, {
+        ...opts,
+        method: "DELETE"
+    }));
+}
+export function getAssetStack({ id, key }: {
+    id: string;
+    key?: string;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.ok(oazapfts.fetchJson<{
+        status: 200;
+        data: AssetStackResponseDto;
+    }>(`/stacks/${encodeURIComponent(id)}${QS.query(QS.explode({
+        key
+    }))}`, {
+        ...opts
+    }));
+}
+export function updateAssetStack({ id, assetStackUpdateDto }: {
+    id: string;
+    assetStackUpdateDto: AssetStackUpdateDto;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.ok(oazapfts.fetchJson<{
+        status: 200;
+        data: AssetStackResponseDto;
+    }>(`/stacks/${encodeURIComponent(id)}`, oazapfts.json({
+        ...opts,
+        method: "PUT",
+        body: assetStackUpdateDto
+    })));
+}
+export function removeAssetFromStack({ id, bulkIdsDto }: {
+    id: string;
+    bulkIdsDto: BulkIdsDto;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.ok(oazapfts.fetchJson<{
+        status: 200;
+        data: BulkIdResponseDto[];
+    }>(`/stacks/${encodeURIComponent(id)}/assets`, oazapfts.json({
+        ...opts,
+        method: "DELETE",
+        body: bulkIdsDto
+    })));
+}
+export function addAssetsToStack({ id, bulkIdsDto }: {
+    id: string;
+    bulkIdsDto: BulkIdsDto;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.ok(oazapfts.fetchJson<{
+        status: 200;
+        data: BulkIdResponseDto[];
+    }>(`/stacks/${encodeURIComponent(id)}/assets`, oazapfts.json({
+        ...opts,
+        method: "PUT",
+        body: bulkIdsDto
+    })));
+}
+export function mergeStacks({ id, bulkIdsDto }: {
+    id: string;
+    bulkIdsDto: BulkIdsDto;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.ok(oazapfts.fetchJson<{
+        status: 201;
+        data: BulkIdResponseDto[];
+    }>(`/stacks/${encodeURIComponent(id)}/merge`, oazapfts.json({
+        ...opts,
+        method: "POST",
+        body: bulkIdsDto
     })));
 }
 export function getDeltaSync({ assetDeltaSyncDto }: {

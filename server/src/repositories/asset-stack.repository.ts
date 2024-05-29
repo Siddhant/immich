@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Chunked, DummyValue, GenerateSql } from 'src/decorators';
 import { AssetStackEntity } from 'src/entities/asset-stack.entity';
 import { IAssetStackRepository } from 'src/interfaces/asset-stack.interface';
 import { Instrumentation } from 'src/utils/instrumentation';
@@ -32,6 +33,26 @@ export class AssetStackRepository implements IAssetStackRepository {
         assets: true,
       },
     });
+  }
+
+  @GenerateSql({ params: [DummyValue.UUID, [DummyValue.UUID]] }, { name: 'no assets', params: [DummyValue.UUID] })
+  getAssetIds(stackId: string, assetIds: string[]): Promise<Set<string>> {
+    return Promise.resolve(new Set());
+  }
+
+  @GenerateSql({ params: [DummyValue.UUID, [DummyValue.UUID]] })
+  addAssetIds(albumId: string, assetIds: string[]): Promise<void> {
+    return Promise.resolve();
+  }
+
+  @GenerateSql({ params: [DummyValue.UUID, [DummyValue.UUID]] })
+  @Chunked({ paramIndex: 1 })
+  removeAssetIds(albumId: string, assetIds: string[]): Promise<void> {
+    return Promise.resolve();
+  }
+
+  updatePrimaryAssets(): Promise<void> {
+    return Promise.resolve();
   }
 
   private async save(entity: Partial<AssetStackEntity>) {

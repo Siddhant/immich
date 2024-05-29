@@ -107,7 +107,6 @@ Class | Method | HTTP request | Description
 *AssetApi* | [**runAssetJobs**](doc//AssetApi.md#runassetjobs) | **POST** /assets/jobs | 
 *AssetApi* | [**updateAsset**](doc//AssetApi.md#updateasset) | **PUT** /assets/{id} | 
 *AssetApi* | [**updateAssets**](doc//AssetApi.md#updateassets) | **PUT** /assets | 
-*AssetApi* | [**updateStackParent**](doc//AssetApi.md#updatestackparent) | **PUT** /assets/stack/parent | 
 *AssetApi* | [**uploadAsset**](doc//AssetApi.md#uploadasset) | **POST** /assets | 
 *AssetApi* | [**viewAsset**](doc//AssetApi.md#viewasset) | **GET** /assets/{id}/thumbnail | 
 *AuditApi* | [**getAuditDeletes**](doc//AuditApi.md#getauditdeletes) | **GET** /audit/deletes | 
@@ -189,6 +188,13 @@ Class | Method | HTTP request | Description
 *SharedLinkApi* | [**removeSharedLink**](doc//SharedLinkApi.md#removesharedlink) | **DELETE** /shared-links/{id} | 
 *SharedLinkApi* | [**removeSharedLinkAssets**](doc//SharedLinkApi.md#removesharedlinkassets) | **DELETE** /shared-links/{id}/assets | 
 *SharedLinkApi* | [**updateSharedLink**](doc//SharedLinkApi.md#updatesharedlink) | **PATCH** /shared-links/{id} | 
+*StacksApi* | [**addAssetsToStack**](doc//StacksApi.md#addassetstostack) | **PUT** /stacks/{id}/assets | 
+*StacksApi* | [**createAssetStack**](doc//StacksApi.md#createassetstack) | **POST** /stacks | 
+*StacksApi* | [**deleteAssetStack**](doc//StacksApi.md#deleteassetstack) | **DELETE** /stacks/{id} | 
+*StacksApi* | [**getAssetStack**](doc//StacksApi.md#getassetstack) | **GET** /stacks/{id} | 
+*StacksApi* | [**mergeStacks**](doc//StacksApi.md#mergestacks) | **POST** /stacks/{id}/merge | 
+*StacksApi* | [**removeAssetFromStack**](doc//StacksApi.md#removeassetfromstack) | **DELETE** /stacks/{id}/assets | 
+*StacksApi* | [**updateAssetStack**](doc//StacksApi.md#updateassetstack) | **PUT** /stacks/{id} | 
 *SyncApi* | [**getDeltaSync**](doc//SyncApi.md#getdeltasync) | **POST** /sync/delta-sync | 
 *SyncApi* | [**getFullSyncForUser**](doc//SyncApi.md#getfullsyncforuser) | **POST** /sync/full-sync | 
 *SystemConfigApi* | [**getConfig**](doc//SystemConfigApi.md#getconfig) | **GET** /system-config | 
@@ -270,6 +276,9 @@ Class | Method | HTTP request | Description
  - [AssetMediaStatus](doc//AssetMediaStatus.md)
  - [AssetOrder](doc//AssetOrder.md)
  - [AssetResponseDto](doc//AssetResponseDto.md)
+ - [AssetStackCreateDto](doc//AssetStackCreateDto.md)
+ - [AssetStackResponseDto](doc//AssetStackResponseDto.md)
+ - [AssetStackUpdateDto](doc//AssetStackUpdateDto.md)
  - [AssetStatsResponseDto](doc//AssetStatsResponseDto.md)
  - [AssetTypeEnum](doc//AssetTypeEnum.md)
  - [AudioCodec](doc//AudioCodec.md)
@@ -408,7 +417,6 @@ Class | Method | HTTP request | Description
  - [UpdateAssetDto](doc//UpdateAssetDto.md)
  - [UpdateLibraryDto](doc//UpdateLibraryDto.md)
  - [UpdatePartnerDto](doc//UpdatePartnerDto.md)
- - [UpdateStackParentDto](doc//UpdateStackParentDto.md)
  - [UpdateTagDto](doc//UpdateTagDto.md)
  - [UsageByUserDto](doc//UsageByUserDto.md)
  - [UserAdminCreateDto](doc//UserAdminCreateDto.md)
