@@ -56,12 +56,20 @@ import {
   mdiAccountGroupOutline,
   mdiFlowerPoppy,
   mdiHandshakeOutline,
+  mdiRocketLaunch,
 } from '@mdi/js';
 import Layout from '@theme/Layout';
 import React from 'react';
 import Timeline, { DateType, Item } from '../components/timeline';
 
 const items: Item[] = [
+  {
+    icon: mdiRocketLaunch,
+    description: 'Immich goes stable',
+    title: 'Stable release',
+    future: true,
+    plannedDate: 'Q4 2024',
+  },
   {
     icon: mdiHandshakeOutline,
     description: 'Joined Futo and Immich core team goes full-time',
@@ -715,11 +723,10 @@ export default function MilestonePage(): JSX.Element {
     <Layout title="Milestones" description="History of Immich">
       <section className="my-8">
         <h1 className="md:text-6xl text-center mb-10 text-immich-primary dark:text-immich-dark-primary px-2">
-          Major Milestones
+          Roadmap
         </h1>
         <p className="text-center text-xl px-2">
-          A list of project achievements and milestones, <br />
-          by release date.
+          A list of future plans and goals, as well as past achievements and milestones.
         </p>
         <div className="flex justify-around mt-8 w-full max-w-full">
           <Timeline items={items} />
